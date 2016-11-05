@@ -1,12 +1,9 @@
+# coding: ascii
 import MySQLdb
 from app import public_key, private_key
 
 class DataBase:
     cursor = None
-    server = 'localhost'
-    user = 'root'
-    password = 'E3HKsGhpDeg'
-    database = 'psycho'
 
     @staticmethod
     def connect():
