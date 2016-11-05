@@ -43,8 +43,8 @@ class DataBase:
 
         cursor.execute("""
             INSERT INTO test_list (test_text, admin_id, test_name)
-            VALUES ("%s", %d, "%s");
-            """ % text, adm_id, txt_name)
+            VALUES ('%s', %s, '%s');
+            """ % (text.encode("utf-8"), adm_id.encode("utf-8"), txt_name.encode("utf-8")))
         connection.commit()
         connection.close()
 
@@ -86,3 +86,13 @@ class DataBase:
             return False
         else:
             return [{'usr_key': rsa.encrypt(row[0])}]
+
+
+    @staticmethod
+    def remove_test(id):
+        connection = DataBase.connect()
+        cursor = connection.cursor()
+
+        cursor.execute("DELETE FROM test_list WHERE id = %d;" % id)
+        connection.commit()
+        connection.close()
