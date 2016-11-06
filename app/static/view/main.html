@@ -1,4 +1,29 @@
-<div ng-repeat="post in json_data">
-  {{post.id}}</br>
-  <a href="#" ng-click="remove_test(post.id)">{{post.name}}</a>
+<title>{{ page_title }}</title>
+<div class="container">
+  <div class="col-md-12">
+    <div class="login_container">
+      <form role="login">
+        <div class="row">
+          <div class="col-md-12">
+            <h1>Тестирование</h1>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <input type="text" placeholder="Фамилия" ng-model="form.first_name"\>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <input type="text" placeholder="Имя" ng-model="form.last_name"\>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <button ng-click="send_user(form)">Войти в систему</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>

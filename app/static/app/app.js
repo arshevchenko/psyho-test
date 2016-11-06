@@ -1,6 +1,7 @@
 var psycho = angular.module("psycho", ["ngRoute"]);
+var main_title = " - Тестирование";
 
-psycho.config(function($routeProvider){
+psycho.config(function($routeProvider, $locationProvider){
   $routeProvider
   .when('/',{
     templateUrl : 'static/view/main.html',
@@ -9,29 +10,36 @@ psycho.config(function($routeProvider){
   })
   .when('/admin',{
     templateUrl: 'static/view/admin.html',
-    controller: 'admAddTest',
+    controller: 'admPanel',
     controllerAs: 'admin'
+  })
+  .when('/test',{
+    templateUrl: 'static/view/test',
+    controller: 'showTests',
+    controllerAs: 'tests'
   });
+
+  $locationProvider.html5Mode(true);
 });
 
 psycho.controller('mainCtrl', mainCtrl);
-psycho.controller('admAddTest', admAddTest);
+psycho.controller('admPanel', admPanel);
+psycho.controller('showTests', showTests);
 
 function mainCtrl($http, $route, $scope){
-  $scope.page_title = "Главная";
-  $http.get('/api/test')
-       .success(function(data){
-         $scope.json_data = data;
-       });
+  $scope.page_title = "Главная" + main_title;
 
-  $scope.remove_test = function(id){
-    $http.delete('/api/admin/' + id).success(function(data){
-        console.log("Removed");
-    });
+  $scope.send_user = function(form){
+      $http.post('/api/login', form)
+           .success(function(data){
+             console.log(data["uid"]);
+           });
   }
 }
 
-function admAddTest($http, $route, $scope){
+function admPanel($http, $route, $scope){
+  $scope.page_title = "Панель администрирования" + main_title;
+  
   $scope.send_new_test = function(form){
     $http.post('/api/admin', form)
          .success(function(data){

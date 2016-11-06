@@ -1,5 +1,6 @@
 # coding: ascii
 import MySQLdb
+import rsa
 from app import public_key, private_key
 
 class DataBase:
@@ -25,6 +26,27 @@ class DataBase:
         return data_records
 
     @staticmethod
+    def add_user(first_name, last_name):
+        connection = DataBase.connect()
+        cursor = connection.cursor()
+
+        cursor.execute("""
+            INSERT INTO test_users (first_name, last_name)
+            VALUES ('%s', '%s')
+        """ % (first_name.encode("utf-8"),
+               last_name.encode("utf-8")))
+        connection.commit()
+
+        cursor.execute("""
+            SELECT id FROM test_users WHERE id = (SELECT MAX(id) FROM test_users);
+         """)
+        row = cursor.fetchone()
+        connection.close()
+
+        return [{"uid": rsa.encrypt(str(row[0]), public_key)}]
+
+
+    @staticmethod
     def get_one_test(id):
         connection = DataBase.connect()
         cursor = connection.cursor()
@@ -34,6 +56,20 @@ class DataBase:
 
         return [{'name': row[0], 'test_text': row[1]}]
 
+    @staticmethod
+    def add_stat(uid, test_id, test_time, err_count):
+        connection = DataBase.connect()
+        cursor = connection.cursor()
+
+        cursor.execute("""
+            INSERT INTO test_results (user_id, test_id, test_time, err_count)
+            VALUES (%s, %s, %s, %s)
+        """ % (uid.encode("utf-8"),
+               test_id.encode("utf-8"),
+               test_time.encode("utf-8"),
+               err_count.encode("utf-8")))
+        connection.commit()
+        connection.close()
 
 # Administrative part
     @staticmethod
@@ -49,7 +85,7 @@ class DataBase:
         connection.close()
 
     @staticmethod
-    def admin_user_results():
+    def get_user_results():
         data_records = []
         connection = DataBase.connect()
         cursor = connection.cursor()

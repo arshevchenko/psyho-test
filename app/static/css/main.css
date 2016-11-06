@@ -1,0 +1,45 @@
+.login_container{
+  position: relative;
+  display: block;
+  width: 400px;
+  height: 300px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  margin: 0 auto;
+  margin-top: 20%;
+}
+
+  .login_container{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 200;
+    text-align: center;
+    color: rgb(49, 43, 44);
+  }
+
+  .login_container input{
+    margin: 0 auto;
+    display: block;
+    width: 200px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 0 4px;
+    margin-top: 20px;
+    padding: 10px;
+  }
+
+  .login_container button{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    background-color: rgb(49, 43, 44);;
+    color: white;
+    display: block;
+    height: 40px;
+    width: 200px;
+    line-height: 20px;
+    font-size: 15px;
+    border: none;
+    border-radius: 5px;
+    margin: 0 auto;
+    margin-top: 20px;
+  }
