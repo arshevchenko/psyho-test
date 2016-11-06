@@ -1,6 +1,6 @@
 # coding: ascii
 import MySQLdb
-import rsa
+import hashlib
 from app import public_key, private_key
 
 class DataBase:
@@ -12,7 +12,7 @@ class DataBase:
         return connection
 
     @staticmethod
-    def user_select_tests():
+    def all_tests():
         data_records = []
         connection = DataBase.connect()
         cursor = connection.cursor()
@@ -42,8 +42,8 @@ class DataBase:
          """)
         row = cursor.fetchone()
         connection.close()
-
-        return [{"uid": rsa.encrypt(str(row[0]), public_key)}]
+        print hashlib.md5(str(row[0])).hexdigest()
+        return [{"uid": hashlib.md5(str(row[0])).hexdigest()}]
 
 
     @staticmethod
@@ -51,10 +51,10 @@ class DataBase:
         connection = DataBase.connect()
         cursor = connection.cursor()
 
-        cursor.execute('SELECT name, test_text FROM test_list WHERE id = %d;' % id)
+        cursor.execute('SELECT test_name, test_text FROM test_list WHERE id = %d;' % id)
         row = cursor.fetchone();
 
-        return [{'name': row[0], 'test_text': row[1]}]
+        return [{'name': row[0], 'text': row[1]}]
 
     @staticmethod
     def add_stat(uid, test_id, test_time, err_count):
@@ -121,7 +121,7 @@ class DataBase:
         if row == None:
             return False
         else:
-            return [{'usr_key': rsa.encrypt(row[0])}]
+            return [{'usr_key': str(hashlib.md5(row[0]).hexdigest())}]
 
 
     @staticmethod

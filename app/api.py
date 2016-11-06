@@ -2,7 +2,7 @@ from app import app
 from flask import json, jsonify, request, abort
 from mysql import DataBase
 
-@app.route('/api/admin/test', methods = ['POST', 'GET'])
+@app.route('/api/admin/test', methods = ['POST'])
 def add_test():
     json_data = request.json
     if request.method == 'POST':
@@ -56,7 +56,7 @@ def login_as_user():
 
 @app.route('/api/test', methods = ['GET'])
 def show_all_tests():
-    data = DataBase.user_select_tests()
+    data = DataBase.all_tests()
 
     result = jsonify(data)
     result.status_code = 200

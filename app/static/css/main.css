@@ -43,3 +43,41 @@
     margin: 0 auto;
     margin-top: 20px;
   }
+
+.fixed_sidebar{
+  position: fixed;
+  display: block;
+  left:0;
+  width: 350px;
+  height: 100%;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+  .fixed_sidebar ul {
+    list-style: none;
+  }
+
+    .fixed_sidebar ul li{
+      cursor: pointer;
+      display: block;
+      padding: 10px;
+      color: #BBBBBB;
+    }
+
+    .fixed_sidebar ul li a:hover{
+      color: black;
+    }
+
+    .fixed_sidebar ul li a{
+      color: #BBBBBB;
+      display: block;
+      text-decoration: none;
+      line-height: 20px
+    }
+
+    .fixed_sidebar .logo_title{
+      text-transform: uppercase;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 400;
+      text-align: center;
+    }
