@@ -47,7 +47,7 @@ class DataBase:
 
 
     @staticmethod
-    def get_one_test(id):
+    def get_test(id):
         connection = DataBase.connect()
         cursor = connection.cursor()
 
@@ -85,7 +85,7 @@ class DataBase:
         connection.close()
 
     @staticmethod
-    def get_user_results():
+    def get_all_results():
         data_records = []
         connection = DataBase.connect()
         cursor = connection.cursor()
@@ -107,6 +107,21 @@ class DataBase:
 
         connection.close()
         return data_records
+
+    @staticmethod
+    def get_result(id):
+        data_records = []
+        connection = DataBase.connect()
+        cursor = connection.cursor()
+
+        cursor.execute("SELECT test_id, test_time, err_count FROM test_results WHERE user_id = %d" % id)
+        for row in cursor.fetchall():
+            result = {'test_id': row[0], 'test_time': row[1], 'err_count': row[2]}
+            data_records.append(result)
+        connection.close()
+
+        return data_records
+
 
     @staticmethod
     def check_adm_record(name, passw):

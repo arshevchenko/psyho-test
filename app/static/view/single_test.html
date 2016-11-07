@@ -15,11 +15,21 @@
         </ul>
       </div>
     </div>
+      <div class="col-md-12">
+        <span class="copyright">Made by Shevchenko A.A.</span>
+      </div>
   </div>
 </div>
 
-<div class="col-md-4">
-  {{test_params.name}}
-  </br>
-  {{test_params.text}}
+<div class="col-md-6">
+  <div class="row">
+    <div class="col-md-12">
+      <h2 align="center">00:00:00</h2>
+    </div>
+  </div>
+  <div class="row" ng-repeat="text in text_array">
+    <div class="col-md-12">
+      <p class="drag-element">{{ text }}</p>
+    </div>
+  </div>
 </div>

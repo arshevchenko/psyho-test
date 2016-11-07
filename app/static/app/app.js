@@ -23,15 +23,19 @@ psycho.config(function($routeProvider, $locationProvider){
     controller: 'showOne',
     controllerAs: 'test'
   })
+  .when('/stat',{
+    templateUrl: '/static/view/stat.html',
+    controller: 'showStats',
+    controllerAs: 'stats'
+  })
   .otherwise('/');
-
-  $locationProvider.html5Mode(true);
 });
 
 psycho.controller('mainCtrl', mainCtrl);
 psycho.controller('admPanel', admPanel);
 psycho.controller('showTests', showTests);
 psycho.controller('showOne', showOne);
+psycho.controller('showStats', showStats);
 
 function mainCtrl($http, $route, $scope, $location){
   $scope.page_title = "Главная" + main_title;
@@ -70,7 +74,19 @@ function showTests($http, $route, $scope){
 function showOne($http, $route, $scope, $routeParams){
   $http.get('/api/test/' + $routeParams.id)
         .success(function(data){
-          $scope.test_params = data[0];
+          var text_splice = data[0]['text'].split('.');
+          text_splice.splice(text_splice.length - 1, 1);
+          
+          $scope.text_array = text_splice;
+          console.log($scope.text_array);
           $scope.page_title = data[0]['name'] + main_title;
         });
+}
+
+function showStats($http, $route, $scope){
+  $scope.page_title = "Ваши результаты" + main_title;
+  $http.get()
+       .success(function(data){
+         $scope.test_results = data;
+  });
 }

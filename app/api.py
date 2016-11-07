@@ -64,13 +64,13 @@ def show_all_tests():
 
 @app.route('/api/test/<int:id>', methods = ['GET'])
 def show_test(id):
-    data = DataBase.get_one_test(id)
+    data = DataBase.get_test(id)
     result = jsonify(data)
     result.status_code = 200
 
     return result
 
-@app.route('/api/stat', methods = ['POST', 'GET'])
+@app.route('/api/stat/<int:id>', methods = ['POST', 'GET'])
 def user_stats():
     if request.method == "POST":
         json_data = request.json
@@ -81,7 +81,7 @@ def user_stats():
         return jsonify([{"result" : True}])
 
     elif request.method == "GET":
-        data = DataBase.get_user_results()
+        data = DataBase.get_result(id)
 
         result = jsonify(data)
         result.status_code(200)
