@@ -12,6 +12,7 @@
         <ul>
           <li><a href="/#/tests">Главная</a></li>
           <li><a href="/#/tests">Список тестов</a></li>
+          <li><a ng-click="get_positions()">Результат</a></li>
         </ul>
       </div>
     </div>
@@ -27,9 +28,16 @@
       <h2 align="center">00:00:00</h2>
     </div>
   </div>
-  <div class="row" ng-repeat="text in text_array">
-    <div class="col-md-12">
-      <p class="drag-element">{{ text }}</p>
+  <div class="row">
+    <div class="simpleDemo">
+      <ul dnd-list="test_list">
+        <li ng-repeat="item in test_list"
+            dnd-draggable="item"
+            dnd-moved="test_list.splice($index, 1)"
+            dnd-effect-allowed="move">
+            {{item.text_part}}
+        </li>
+      </ul>
     </div>
   </div>
 </div>

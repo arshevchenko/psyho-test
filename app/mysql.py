@@ -42,8 +42,8 @@ class DataBase:
          """)
         row = cursor.fetchone()
         connection.close()
-        print hashlib.md5(str(row[0])).hexdigest()
-        return [{"uid": hashlib.md5(str(row[0])).hexdigest()}]
+
+        return [{"uni": hashlib.md5(str(row[0])).hexdigest(), "uid": str(row[0])}]
 
 
     @staticmethod
@@ -115,11 +115,16 @@ class DataBase:
         cursor = connection.cursor()
 
         cursor.execute("SELECT test_id, test_time, err_count FROM test_results WHERE user_id = %d" % id)
-        for row in cursor.fetchall():
-            result = {'test_id': row[0], 'test_time': row[1], 'err_count': row[2]}
-            data_records.append(result)
-        connection.close()
 
+        if row == None:
+            return [{"has_info": False}]
+            connection.close()
+
+        for row in cursor.fetchall():
+            result = {'test_id': row[0], 'test_time': row[1], 'err_count': row[2], "has_info": True}
+            data_records.append(result)
+
+        connection.close()
         return data_records
 
 
