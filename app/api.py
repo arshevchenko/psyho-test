@@ -71,21 +71,28 @@ def show_test(id):
     return result
 
 @app.route('/api/stat/<int:id>', methods = ['POST', 'GET'])
-def user_stats():
+def user_stats(id):
     if request.method == "POST":
         json_data = request.json
-        DataBase.add_stat(json_data['uid'],
+        DataBase.add_stat(id,
                           json_data['test_id'],
                           json_data['test_time'],
-                          json_data['err_count'])
+                          json_data['err_count'],
+                          json_data['pos'])
         return jsonify([{"result" : True}])
 
     elif request.method == "GET":
         data = DataBase.get_result(id)
 
         result = jsonify(data)
-        result.status_code(200)
         return result
 
     else:
         return abort(404)
+
+@app.route('/api/last/<int:id>', methods = ['GET'])
+def user_last_stat(id):
+    data = DataBase.get_last_result(id)
+
+    result = jsonify(data)
+    return result

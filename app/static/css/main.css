@@ -3,19 +3,44 @@ body{
     font-weight: 200;
 }
 
+.logo_title{
+  color: white;
+  font-weight: 700;
+}
+
+.get_result{
+  cursor: pointer;
+  display: block;
+  padding-left: 50px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  background: #90FE00;
+  text-decoration: none;
+  color: white;
+  text-transform: uppercase;
+  margin-top: 400px;
+}
+
+.get_result:hover{
+  color: white;
+  text-decoration: none;
+  background: #C2FF73;
+}
+
+
 .copyright{
   font-size: 12px;
   color: #BBBBBB;
   display: block;
-  position: fixed;
   text-align: center;
   left: 100px;
-  bottom: 10px;
+  margin-top: -40px
 }
 
 .login_container{
   position: relative;
   display: block;
+  background: rgb(254, 0, 108);
   width: 400px;
   height: 300px;
   box-shadow: 0 0 10px rgba(0,0,0,0.5);
@@ -32,6 +57,7 @@ body{
 
   .login_container h1{
     text-transform: uppercase;
+    color: white;
   }
 
   .login_container input{
@@ -66,6 +92,7 @@ body{
 .fixed_sidebar{
   position: fixed;
   display: block;
+  background: rgb(254, 0, 108);
   left:0;
   width: 350px;
   height: 100%;
@@ -74,21 +101,24 @@ body{
 
   .fixed_sidebar ul {
     list-style: none;
+    padding: 0;
   }
 
     .fixed_sidebar ul li{
       cursor: pointer;
       display: block;
-      padding: 10px;
+      padding-left: 50px;
+      padding-top: 15px;
+      padding-bottom: 15px;
       color: #BBBBBB;
     }
 
-    .fixed_sidebar ul li a:hover{
-      color: black;
+    .fixed_sidebar ul li:hover{
+      background: rgb(255, 177, 60);
     }
 
     .fixed_sidebar ul li a{
-      color: #BBBBBB;
+      color: white;
       display: block;
       text-decoration: none;
       line-height: 20px

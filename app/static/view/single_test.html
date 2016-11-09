@@ -1,6 +1,6 @@
 <title>{{ page_title }}</title>
 
-<div class="col-md-4">
+<div class="col-md-3">
   <div class="fixed_sidebar">
     <div class="row">
       <div class="col-md-12">
@@ -10,22 +10,23 @@
     <div class="row">
       <div class="col-md-12">
         <ul>
-          <li><a href="/#/tests">Главная</a></li>
+          <li><a href="/#/stat">Ваша статистика</a></li>
           <li><a href="/#/tests">Список тестов</a></li>
-          <li><a ng-click="get_positions()">Результат</a></li>
         </ul>
       </div>
     </div>
+    <div class="row">
       <div class="col-md-12">
-        <span class="copyright">Made by Shevchenko A.A.</span>
+        <a class="get_result" ng-click="get_positions()">Результат</a>
       </div>
+    </div>
   </div>
 </div>
 
-<div class="col-md-6">
+<div class="col-md-9">
   <div class="row">
     <div class="col-md-12">
-      <h2 align="center">00:00:00</h2>
+      <h2 align="center" id="timer">{{time}}</h2>
     </div>
   </div>
   <div class="row">

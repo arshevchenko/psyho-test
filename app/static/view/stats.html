@@ -21,22 +21,34 @@
 <div class="col-md-9">
   <div class="row">
     <div class="col-md-12">
-      <div class="col-md-4">
+      <div class="col-md-3">
+        <h3>Номер попытки</h3>
+      </div>
+      <div class="col-md-3">
         <h3>Номер теста</h3>
       </div>
-      <div class="col-md-8">
-        <h3>Название</h3>
+      <div class="col-md-3">
+        <h3>Время</h3>
+      </div>
+      <div class="col-md-3">
+        <h3>Число ошибок</h3>
       </div>
     </div>
   </div>
 <hr>
-  <div class="row" ng-repeat="test in test_list">
+  <div class="row" ng-repeat="i in test_results">
     <div class="col-md-12">
-      <div class="col-md-4">
-        <p>{{test.id}}</p>
+      <div class="col-md-3">
+        {{$index + 1}}
       </div>
-      <div class="col-md-8">
-        <a href="/#/tests/{{test.id}}">{{test.name}}</a>
+      <div class="col-md-3">
+        {{i.test_id}}
+      </div>
+      <div class="col-md-3">
+        {{i.test_time}}
+      </div>
+      <div class="col-md-3">
+        {{i.err_count}}
       </div>
     </div>
   </div>

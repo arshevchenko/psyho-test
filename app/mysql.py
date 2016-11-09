@@ -43,7 +43,7 @@ class DataBase:
         row = cursor.fetchone()
         connection.close()
 
-        return [{"uni": hashlib.md5(str(row[0])).hexdigest(), "uid": str(row[0])}]
+        return [{"uni": hashlib.md5(str(row[0])).hexdigest(), "id": str(row[0])}]
 
 
     @staticmethod
@@ -57,17 +57,18 @@ class DataBase:
         return [{'name': row[0], 'text': row[1]}]
 
     @staticmethod
-    def add_stat(uid, test_id, test_time, err_count):
+    def add_stat(uid, test_id, test_time, err_count, pos):
         connection = DataBase.connect()
         cursor = connection.cursor()
 
         cursor.execute("""
-            INSERT INTO test_results (user_id, test_id, test_time, err_count)
-            VALUES (%s, %s, %s, %s)
-        """ % (uid.encode("utf-8"),
-               test_id.encode("utf-8"),
+            INSERT INTO test_result (user_id, test_id, test_time, err_count, positions)
+            VALUES (%s, %s, '%s', %s, '%s');
+        """ % (uid,
+               test_id,
                test_time.encode("utf-8"),
-               err_count.encode("utf-8")))
+               err_count,
+               pos.encode("utf-8")))
         connection.commit()
         connection.close()
 
@@ -114,18 +115,32 @@ class DataBase:
         connection = DataBase.connect()
         cursor = connection.cursor()
 
-        cursor.execute("SELECT test_id, test_time, err_count FROM test_results WHERE user_id = %d" % id)
+        cursor.execute("SELECT test_id, test_time, err_count FROM test_result WHERE user_id = %d" % id)
+        rows = cursor.fetchall()
 
-        if row == None:
+        if rows == None:
             return [{"has_info": False}]
             connection.close()
 
-        for row in cursor.fetchall():
-            result = {'test_id': row[0], 'test_time': row[1], 'err_count': row[2], "has_info": True}
+        for row in rows:
+            result = {'test_id': row[0], 'test_time': str(row[1]), 'err_count': row[2]}
             data_records.append(result)
 
         connection.close()
         return data_records
+
+    @staticmethod
+    def get_last_result(id):
+        connection = DataBase.connect()
+        cursor = connection.cursor()
+
+        cursor.execute("SELECT test_id, test_time, err_count FROM test_result WHERE user_id = %d and id = (SELECT MAX(id) FROM test_result WHERE user_id = %d);" % (id, id))
+        row = cursor.fetchone()
+        print row
+        result = {'test_id': row[0], 'test_time': str(row[1]), 'err_count': row[2]}
+
+        connection.close()
+        return result
 
 
     @staticmethod
